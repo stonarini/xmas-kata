@@ -1,6 +1,6 @@
 class Yatzy:
     def __init__(self, dice):
-        self.dice = [ord(die) % 6 if type(die) != int else die for die in dice]
+        self.dice = dice
 
     def ones(self):
         return self.dice.count(1)
