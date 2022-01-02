@@ -1,23 +1,28 @@
 class Dni:
     def __init__(self, new_dni=""):
         self.dni = new_dni
+        self.valid_format = self.check_dni_format()
         self.table = "TRWAGMYFPDXBNJZSQVHLCKE"
 
     ##### interfaz PUBLICA #####
     def set_dni(self, new_dni):
         self.dni = new_dni
+        self.valid_format = self.check_dni_format()
 
     def get_dni(self):
         return self.dni
 
     def check_is_valid(self):
-        if not self.calculate_letter():
+        if not self.valid_format:
             return False
         return self.get_dni_letter() == self.calculate_letter()
 
     def get_letter(self):
-        if self.check_dni_format():
+        if self.valid_format:
             return self.get_dni_letter()
+
+    def get_correct_letter(self):
+        return self.calculate_letter()
 
     ##### parte PRIVADA #####
     def get_dni_letter(self):
@@ -27,12 +32,12 @@ class Dni:
         return self.dni[:-1]
 
     def calculate_letter(self):
-        if self.check_dni_format():
+        if self.valid_format:
             return self.table[int(self.get_dni_number()) % len(self.table)]
 
     def check_dni_format(self):
-        if type(self.dni) == str and self.dni:
-            return self.get_dni_number().isdigit() and len(self.dni) == 9
+        if self.dni and type(self.dni) == str:
+            return len(self.dni) == 9 and self.get_dni_number().isdigit()
 
 
 if __name__ == "__main__":
@@ -71,22 +76,22 @@ if __name__ == "__main__":
     ]
 
     def format_test_dni(test_dni):
-        print("DNI is -->", test_dni.get_dni())
-        print("DNI Entered Letter is -->", test_dni.get_letter())
-        print("DNI Correct Letter is -->", test_dni.calculate_letter())
+        print(" DNI is -->", test_dni.get_dni())
+        print(" DNI Entered Letter is -->", test_dni.get_letter())
+        print(" DNI Correct Letter is -->", test_dni.get_correct_letter())
         print(
-            "So, the DNI is -->",
+            " So, the DNI is -->",
             "Valid" if test_dni.check_is_valid() else "Not Valid",
             "\n",
         )
 
-    print("Bad DNIs")
+    print("---------- Bad DNIs ----------\n")
     for dni in bad_dnis:
         test_dni = Dni(dni)
         format_test_dni(test_dni)
         assert test_dni.check_is_valid() is False
 
-    print("Good DNIs")
+    print("---------- Good DNIs ----------\n")
     for dni in good_dnis:
         test_dni = Dni(dni)
         format_test_dni(test_dni)
