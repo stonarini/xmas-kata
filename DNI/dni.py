@@ -10,12 +10,6 @@ class Dni:
     def get_dni(self):
         return self.dni
 
-    def change_table(self, new_table):
-        if type(new_table) in (str, list):
-            self.table = new_table
-        else:
-            print("New table must be of type str or list")
-
     def check_is_valid(self):
         if not self.calculate_letter():
             return False
@@ -51,6 +45,11 @@ if __name__ == "__main__":
         "a9a39(JL:",
         ["asd", "djksja"],
         {1: "l", 2: "l"},
+        None,
+        "78484464E",
+        "72376173Q",
+        "01817200A",
+        "95882054T",
     ]
 
     good_dnis = [
@@ -71,26 +70,24 @@ if __name__ == "__main__":
         "66499420A",
     ]
 
+    def format_test_dni(test_dni):
+        print("DNI is -->", test_dni.get_dni())
+        print("DNI Entered Letter is -->", test_dni.get_letter())
+        print("DNI Correct Letter is -->", test_dni.calculate_letter())
+        print(
+            "So, the DNI is -->",
+            "Valid" if test_dni.check_is_valid() else "Not Valid",
+            "\n",
+        )
+
+    print("Bad DNIs")
     for dni in bad_dnis:
         test_dni = Dni(dni)
-        print("DNI is -->", test_dni.get_dni())
-        print("DNI Entered Letter is -->", test_dni.get_letter())
-        print("DNI Correct Letter is -->", test_dni.calculate_letter())
-        print(
-            "So, the DNI is -->",
-            "Valid" if test_dni.check_is_valid() else "Not Valid",
-            "\n",
-        )
+        format_test_dni(test_dni)
         assert test_dni.check_is_valid() is False
 
+    print("Good DNIs")
     for dni in good_dnis:
         test_dni = Dni(dni)
-        print("DNI is -->", test_dni.get_dni())
-        print("DNI Entered Letter is -->", test_dni.get_letter())
-        print("DNI Correct Letter is -->", test_dni.calculate_letter())
-        print(
-            "So, the DNI is -->",
-            "Valid" if test_dni.check_is_valid() else "Not Valid",
-            "\n",
-        )
+        format_test_dni(test_dni)
         assert test_dni.check_is_valid() is True
