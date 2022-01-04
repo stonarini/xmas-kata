@@ -23,7 +23,7 @@ class Yatzy:
     def chance(self):
         return sum(self.dice)
 
-    def score_pair(d1, d2, d3, d4, d5):
+    def pair(d1, d2, d3, d4, d5):
         counts = [0] * 6
         counts[d1 - 1] += 1
         counts[d2 - 1] += 1
@@ -79,7 +79,7 @@ class Yatzy:
                 return (i + 1) * 4
         return 0
 
-    def fullHouse(d1, d2, d3, d4, d5):
+    def full_house(d1, d2, d3, d4, d5):
         tallies = []
         _2 = False
         i = 0
@@ -109,7 +109,7 @@ class Yatzy:
         else:
             return 0
 
-    def smallStraight(d1, d2, d3, d4, d5):
+    def small_straight(d1, d2, d3, d4, d5):
         tallies = [0] * 6
         tallies[d1 - 1] += 1
         tallies[d2 - 1] += 1
@@ -126,7 +126,7 @@ class Yatzy:
             return 15
         return 0
 
-    def largeStraight(d1, d2, d3, d4, d5):
+    def large_straight(d1, d2, d3, d4, d5):
         tallies = [0] * 6
         tallies[d1 - 1] += 1
         tallies[d2 - 1] += 1
@@ -143,11 +143,8 @@ class Yatzy:
             return 20
         return 0
 
-    def yatzy(dice):
-        counts = [0] * (len(dice) + 1)
-        for die in dice:
-            counts[die - 1] += 1
-        for i in range(len(counts)):
-            if counts[i] == 5:
-                return 50
-        return 0
+    def yatzy(self):
+        if set(self.dice) == 1:
+            return 50
+        else:
+            return 0
