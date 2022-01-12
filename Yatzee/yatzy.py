@@ -24,26 +24,26 @@ class Yatzy:
         return sum(self.dice)
 
     def pair(self):
-        for i in range(6, 1):
+        for i in range(6, 0, -1):
             if self.dice.count(i) >= 2:
                 return i * 2
         return 0
 
     def two_pair(self):
-        pairs = [i * 2 for i in range(6, 1) if self.dice.count(i) >= 2]
+        pairs = [i * 2 for i in range(6, 0, -1) if self.dice.count(i) >= 2]
         if len(pairs) > 1:
             return sum(pairs)
         else:
             return 0
 
     def three_of_a_kind(self):
-        for i in range(6, 1):
+        for i in range(6, 0, -1):
             if self.dice.count(i) >= 3:
                 return i * 3
         return 0
 
     def four_of_a_kind(self):
-        for i in range(6, 1):
+        for i in range(6, 0, -1):
             if self.dice.count(i) >= 4:
                 return i * 4
         return 0
