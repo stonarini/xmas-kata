@@ -2,6 +2,9 @@ class Yatzy:
     def __init__(self, dice):
         self.dice = dice
 
+    def get_throw(self):
+        return self.dice
+
     def ones(self):
         return self.dice.count(1)
 
