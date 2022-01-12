@@ -12,8 +12,8 @@ def gen_random_throws(num=2):
 
 score_values = {"ones": 1, "twos": 2, "threes": 3, "fours": 4, "fives": 5, "sixes": 6}
 
-random_throws = gen_random_throws(40000)
-random_throws += [[1, 1, 1, 1, 1], [6, 6, 6, 6, 6]]
+random_throws = gen_random_throws(1000000)
+random_throws += [[1, 1, 1, 1, 1], [6, 6, 6, 6, 6], [1, 2, 3, 4, 5, 6], [2, 3, 4, 5, 6]]
 
 
 def test_yatzy_class():
@@ -27,6 +27,9 @@ def test_yatzy_class():
         assert_two_pair(dummy_yatzy, throw)
         assert_three_of_a_kind(dummy_yatzy, throw)
         assert_four_of_a_kind(dummy_yatzy, throw)
+        assert_full_house(dummy_yatzy, throw)
+        assert_small_straight(dummy_yatzy, throw)
+        assert_large_straight(dummy_yatzy, throw)
         assert_yatzy(dummy_yatzy, throw)
 
 
@@ -87,9 +90,16 @@ def assert_full_house(dummy_yatzy, throw):
     else:
         assert 0 == real_value
 
-def assert_small_straight():
-    pass
+def assert_small_straight(dummy_yatzy, throw):
+    real_value = dummy_yatzy.small_straight()
+    if set(throw) == 5 and sorted(throw)[0] == 1:
+        assert 15 == real_value
+    else:
+        assert 0 == real_value
 
-def assert_large_straight():
-    pass
-
+def assert_large_straight(dummy_yatzy, throw):
+    real_value = dummy_yatzy.large_straight()
+    if set(throw) == 5 and sorted(throw)[0] == 2:
+        assert 20 == real_value
+    else:
+        assert 0 == real_value
