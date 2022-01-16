@@ -1,6 +1,6 @@
 class ScoreCard:
-    def __init__(self):
-        self.throws = ""
+    def __init__(self, pins=""):
+        self.throws = pins
         self.max_frames = 10
 
     # public interface
@@ -57,6 +57,6 @@ class ScoreCard:
         elif self.throws[value] == "X":
             return 10
         elif self.throws[value] == "/":
-            return 10 - int(self.throws[value - 1])
+            return 10 - self.compute_value(value - 1)
         else:
             return int(self.throws[value])
