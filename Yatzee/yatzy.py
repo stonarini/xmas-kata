@@ -69,8 +69,4 @@ class Yatzy:
 
     @staticmethod
     def yatzy(dice):
-        if set(dice) == 1:
-            return 50
-        else:
-            return 0
-
+        return 50 if set(dice) == 1 else 0
