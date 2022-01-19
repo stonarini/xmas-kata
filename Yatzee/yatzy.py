@@ -1,75 +1,76 @@
 class Yatzy:
-    def __init__(self, dice):
-        self.dice = dice
+    @staticmethod
+    def ones(dice):
+        return dice.count(1)
 
-    def get_throw(self):
-        return self.dice
+    @staticmethod
+    def twos(dice):
+        return dice.count(2) * 2
 
-    def ones(self):
-        return self.dice.count(1)
+    @staticmethod
+    def threes(dice):
+        return dice.count(3) * 3
 
-    def twos(self):
-        return self.dice.count(2) * 2
+    @staticmethod
+    def fours(dice):
+        return dice.count(4) * 4
 
-    def threes(self):
-        return self.dice.count(3) * 3
+    @staticmethod
+    def fives(dice):
+        return dice.count(5) * 5
 
-    def fours(self):
-        return self.dice.count(4) * 4
+    @staticmethod
+    def sixes(dice):
+        return dice.count(6) * 6
 
-    def fives(self):
-        return self.dice.count(5) * 5
+    @staticmethod
+    def chance(dice):
+        return sum(dice)
 
-    def sixes(self):
-        return self.dice.count(6) * 6
+    @staticmethod
+    def pair(dice):
+        return max(filter(lambda x: dice.count(x) >= 2, set(dice)), default=0) * 2
 
-    def chance(self):
-        return sum(self.dice)
-
-    def pair(self):
-        for i in range(6, 0, -1):
-            if self.dice.count(i) >= 2:
-                return i * 2
-        return 0
-
-    def two_pair(self):
-        pairs = [i * 2 for i in range(6, 0, -1) if self.dice.count(i) >= 2]
+    @staticmethod
+    def two_pair(dice):
+        pairs = [i * 2 for i in range(6, 0, -1) if dice.count(i) >= 2]
         if len(pairs) > 1:
             return sum(pairs)
         else:
             return 0
 
-    def three_of_a_kind(self):
-        for i in range(6, 0, -1):
-            if self.dice.count(i) >= 3:
-                return i * 3
+    @staticmethod
+    def three_of_a_kind(dice):
+        return max(filter(lambda x: dice.count(x) >= 3, set(dice)), default=0) * 3
+
+    @staticmethod
+    def four_of_a_kind(dice):
+        return max(filter(lambda x: dice.count(x) >= 4, set(dice)), default=0) * 4
+
+    @staticmethod
+    def full_house(dice):
+        if set(dice) == 2 and 4 > dice.count(dice[0]) > 1:
+            return sum(dice)
         return 0
 
-    def four_of_a_kind(self):
-        for i in range(6, 0, -1):
-            if self.dice.count(i) >= 4:
-                return i * 4
-        return 0
-
-    def full_house(self):
-        if set(self.dice) == 2 and 4 > self.dice.count(self.dice[0]) > 1:
-            return sum(self.dice)
-        return 0
-
-    def small_straight(self):
-        if set(self.dice) == 5 and sorted(self.dice)[0] == 1:
+    @staticmethod
+    def small_straight(dice):
+        if set(dice) == 5 and sorted(dice)[0] == 1:
             return 15
         else:
             return 0
 
-    def large_straight(self):
-        if set(self.dice) == 5 and sorted(self.dice)[0] == 2:
+    @staticmethod
+    def large_straight(dice):
+        if set(dice) == 5 and sorted(dice)[0] == 2:
             return 20
         else:
             return 0
 
-    def yatzy(self):
-        if set(self.dice) == 1:
+    @staticmethod
+    def yatzy(dice):
+        if set(dice) == 1:
             return 50
         else:
             return 0
+
