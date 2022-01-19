@@ -33,9 +33,9 @@ class Yatzy:
 
     @staticmethod
     def two_pair(dice):
-        pairs = [i * 2 for i in range(6, 0, -1) if dice.count(i) >= 2]
-        if len(pairs) > 1:
-            return sum(pairs)
+        pairs = list(filter(lambda x: dice.count(x) >= 2, set(dice)))
+        if len(pairs) == 2:
+            return sum(pairs) * 2
         else:
             return 0
 
@@ -55,17 +55,11 @@ class Yatzy:
 
     @staticmethod
     def small_straight(dice):
-        if set(dice) == 5 and sorted(dice)[0] == 1:
-            return 15
-        else:
-            return 0
+        return sum(dice) if sorted(dice) == range(1, 7) else 0
 
     @staticmethod
     def large_straight(dice):
-        if set(dice) == 5 and sorted(dice)[0] == 2:
-            return 20
-        else:
-            return 0
+        return sum(dice) if sorted(dice) == range(2, 8) else 0
 
     @staticmethod
     def yatzy(dice):
